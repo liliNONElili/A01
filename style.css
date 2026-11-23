@@ -625,7 +625,7 @@ h1{
 
 /* ── 사람 ─────────────────────────────────────────────────────────────── */
 
-.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(198px,1fr));gap:clamp(8px,1.1vw,12px)}
+.team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.1vw,12px)}
 
 .profile{
   display:flex;flex-direction:column;gap:9px;
