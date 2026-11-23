@@ -157,8 +157,11 @@ body.is-locked .skip{display:none}
 }
 .relock:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
-@keyframes gate-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-body:not(.is-locked) .page{animation:gate-in .5s ease-out both}
+@keyframes gate-in{from{opacity:0}to{opacity:1}}
+/* .page 에 transform 을 걸지 않는다 — transform 이 있으면 그 안의 position:fixed(#panel·#backdrop)가
+   화면이 아니라 .page 를 기준으로 잡혀, 모바일 바텀시트가 페이지 맨 아래로 밀린다. */
+body:not(.is-locked) .page{animation:page-in .5s ease-out}
+@keyframes page-in{from{opacity:0}to{opacity:1}}
 
 /* ── 종이 프레임 ───────────────────────────────────────────────────────── */
 
@@ -848,17 +851,36 @@ h1{
   .lock-tag{font-size:8px;padding:1px 5px 2px}
 
   .panel{
-    position:fixed;left:0;right:0;bottom:0;top:auto;
-    z-index:40;margin:0;max-height:88vh;overflow:auto;
+    position:fixed;inset:auto 0 0 0;top:auto;bottom:0;left:0;right:0;
+    z-index:40;margin:0;max-height:88vh;min-height:0;
+    overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
     border:1px solid var(--ink-3);border-bottom:0;
     box-shadow:0 -24px 60px -30px rgba(20,18,15,.6);
-    transform:translateY(104%);transition:transform .32s cubic-bezier(.4,.05,.2,1);
-    padding:16px 16px 22px;
+    transform:translateY(104%);visibility:hidden;pointer-events:none;
+    transition:transform .32s cubic-bezier(.4,.05,.2,1),visibility 0s linear .32s;
+    padding:16px 16px calc(22px + env(safe-area-inset-bottom,0px));
   }
-  .panel.is-open{transform:none}
-  .panel-close{display:block}
-  .panel h3{font-size:20px}
+  .panel.is-sheet-open,.panel.is-open{
+    transform:none;visibility:visible;pointer-events:auto;
+    transition:transform .32s cubic-bezier(.4,.05,.2,1),visibility 0s linear 0s;
+  }
+  .panel-close{
+    display:block;width:34px;height:34px;right:0;top:-4px;
+    font-size:14px;touch-action:manipulation;
+  }
+  .panel h3{font-size:20px;padding-right:44px}
   .panel-art{margin-top:10px}
+
+  /* 시트가 열린 동안에는 페이지 쪽 transform/animation 을 끄고
+     body 를 fixed 로 붙잡는다(app.js lockPageScroll) —
+     fixed 자식의 기준이 화면(viewport)이 되도록 하는 안전장치. */
+  html.is-sheet-open .page,
+  html.is-sheet-open .page-frame,
+  html.is-sheet-open #main,
+  html.is-sheet-open .sheet,
+  html.is-sheet-open .section-grid{
+    animation:none !important;transform:none !important;filter:none !important;
+  }
 
   .floorstrip{grid-template-columns:repeat(5,minmax(0,1fr))}
   .fstrip{padding:6px 1px 7px;font-size:8.5px}
@@ -931,7 +953,7 @@ h1{
   .basis{font-size:9px}
   .nav-links{font-size:9.5px;gap:8px}
 
-  .panel{padding:14px 12px 20px;max-height:90vh}
+  .panel{padding:14px 12px calc(20px + env(safe-area-inset-bottom,0px));max-height:90vh}
   .panel-rooms li{font-size:10px}
   .pmini-t{font-size:11px}
 }

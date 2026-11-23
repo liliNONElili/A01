@@ -29,7 +29,9 @@
     filter: 'all',
     floor: 'f2',
     noteTimer: null,
-    focusTimer: null
+    focusTimer: null,
+    sheetOpen: false,
+    sheetScrollY: 0
   };
 
   function $(sel) { return document.querySelector(sel); }
@@ -582,33 +584,75 @@
       b.classList.add('is-shake');
       window.setTimeout(function () { b.classList.remove('is-shake'); }, 500);
     });
-    if (isMobile()) {
-      var p = $('#panel');
-      if (p) {
-        p.classList.remove('is-open');
-        var bd = $('#backdrop');
-        if (bd) bd.hidden = true;
-      }
-    }
+    if (isMobile()) closeSheet();
   }
 
-  /* ── 모바일 시트 ─────────────────────────────────────────────────────── */
+  /* ── 모바일 시트 ───────────────────────────────────────────────────────
+     시트는 화면 하단에 고정된 오버레이(position:fixed)로 뜬다.
+     뒤 페이지는 body 를 position:fixed 로 붙잡아 두어 스크롤이 튀지 않고,
+     시트를 닫으면 보던 자리로 그대로 돌아온다. */
+
+  function lockPageScroll() {
+    if (state.sheetOpen) return;
+    state.sheetScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    state.sheetOpen = true;
+    var html = document.documentElement;
+    var body = document.body;
+    if (html) html.classList.add('is-sheet-open');
+    body.style.position = 'fixed';
+    body.style.top = (-state.sheetScrollY) + 'px';
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.width = '100%';
+    body.style.overflow = 'hidden';
+  }
+
+  function unlockPageScroll() {
+    if (!state.sheetOpen) return;
+    state.sheetOpen = false;
+    var html = document.documentElement;
+    var body = document.body;
+    if (html) html.classList.remove('is-sheet-open');
+    body.style.position = '';
+    body.style.top = '';
+    body.style.left = '';
+    body.style.right = '';
+    body.style.width = '';
+    body.style.overflow = '';
+    // html{scroll-behavior:smooth} 때문에 복원이 미끄러지지 않도록 잠깐 끈다.
+    var smooth = html ? html.style.scrollBehavior : '';
+    if (html) html.style.scrollBehavior = 'auto';
+    window.scrollTo(0, state.sheetScrollY);
+    if (html) html.style.scrollBehavior = smooth;
+  }
 
   function openSheet() {
     var p = $('#panel');
     var bd = $('#backdrop');
     if (!p) return;
-    p.classList.add('is-open');
+    lockPageScroll();
+    p.classList.add('is-sheet-open');
+    p.setAttribute('role', 'dialog');
+    p.setAttribute('aria-modal', 'true');
     if (bd) bd.hidden = false;
-    document.body.style.overflow = 'hidden';
+    var close = $('#panel-close');
+    if (close) {
+      window.setTimeout(function () {
+        try { close.focus({ preventScroll: true }); } catch (e) { /* 무시 */ }
+      }, 80);
+    }
   }
 
   function closeSheet() {
     var p = $('#panel');
     var bd = $('#backdrop');
-    if (p) p.classList.remove('is-open');
+    if (p) {
+      p.classList.remove('is-sheet-open');
+      p.removeAttribute('role');
+      p.removeAttribute('aria-modal');
+    }
     if (bd) bd.hidden = true;
-    document.body.style.overflow = '';
+    unlockPageScroll();
   }
 
   /* ── 조직 ────────────────────────────────────────────────────────────── */
@@ -907,6 +951,7 @@
       var projEl = ev.target.closest ? ev.target.closest('[data-proj]') : null;
       if (projEl && !projEl.classList.contains('row')) {
         ev.preventDefault();
+        if (state.sheetOpen) closeSheet();
         focusProject(projEl.getAttribute('data-proj'));
         return;
       }
@@ -947,6 +992,10 @@
     window.addEventListener('resize', function () {
       alignElevator();
       if (!isMobile()) closeSheet();
+    });
+
+    window.addEventListener('pagehide', function () {
+      if (state.sheetOpen) unlockPageScroll();
     });
   }
 
