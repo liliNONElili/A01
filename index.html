@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f3eb">
+<meta name="description" content="논의 AI 사무실 — 지하 2층부터 옥상까지 열세 개 층의 건물 단면도. 층을 눌러 안을 보고, 층마다 붙은 실제 프로젝트와 일정을 확인하는 스케치 시안.">
+<meta name="robots" content="noindex, nofollow">
+<title>논의 AI 사무실 · 13층 단면도</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%23f7f3eb'/%3E%3Crect x='3.5' y='3.5' width='57' height='57' rx='4' fill='none' stroke='%23262422'/%3E%3Cpath d='M20 46V22h24v24M20 30h24M20 38h24M32 22v24' fill='none' stroke='%23262422'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="is-locked">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="p-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="#9a917f" stroke-width=".85"/>
+    </pattern>
+    <pattern id="p-fine" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#b3a996" stroke-width=".7"/>
+    </pattern>
+    <pattern id="p-earth" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#b0a692" stroke-width="1"/>
+    </pattern>
+    <pattern id="p-lock" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+      <line x1="0" y1="0" x2="0" y2="4" stroke="#6b6355" stroke-width="1.05"/>
+    </pattern>
+  </defs>
+</svg>
+
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title" aria-describedby="gate-desc">
+  <div class="gate-frame">
+    <p class="gate-mini">AI OFFICE TOWER <span aria-hidden="true">·</span> 13 FLOORS <span aria-hidden="true">·</span> SHEET 02</p>
+
+    <div class="gate-card" id="gate-card">
+      <svg class="art gate-lock" viewBox="0 0 132 132" role="img" aria-label="잠긴 도면">
+        <path class="ln3" d="M10 10h112v112H10z" stroke-dasharray="4 4"/>
+        <path class="ln3" d="M66 10v7M66 115v7M10 66h7M115 66h7"/>
+        <rect x="38" y="72" width="56" height="36" fill="url(#p-fine)" opacity=".28"/>
+        <path class="ln" d="M38 72h56v36H38z"/>
+        <path class="ln" d="M46 72V54a20 20 0 0 1 40 0v18"/>
+        <path class="ln2" d="M53 72V54a13 13 0 0 1 26 0v18"/>
+        <circle class="ln" cx="66" cy="87" r="4.6"/>
+        <path class="ln2" d="M66 91.6v8.4"/>
+        <path class="ln3" d="M38 116h56M38 113v6M94 113v6"/>
+      </svg>
+
+      <p class="gate-kicker">PRIVATE DRAWING · 비공개 도면</p>
+      <p class="gate-title" id="gate-title">논의 AI 사무실</p>
+      <p class="gate-en">NONE&rsquo;s AI Office Tower</p>
+      <p class="gate-desc" id="gate-desc">열세 개 층의 단면도와 다섯 사람의 일은 비밀번호로 잠겨 있습니다.<br>입장 비밀번호를 넣으면 도면이 열립니다.</p>
+
+      <form class="gate-form" id="gate-form" novalidate>
+        <label class="gate-label" for="gate-pass">입장 비밀번호<em>PASSCODE</em></label>
+        <div class="gate-row">
+          <input class="gate-input" id="gate-pass" name="pass" type="password" autocomplete="off"
+                 autocapitalize="off" spellcheck="false" maxlength="32" placeholder="••••" aria-describedby="gate-error">
+          <button class="gate-open" id="gate-open" type="submit">열기</button>
+        </div>
+        <p class="gate-error" id="gate-error" role="alert"></p>
+      </form>
+
+      <p class="gate-note" id="gate-note">AES-256-GCM · PBKDF2-SHA256 — 암호문만 공개되고, 비밀번호 없이는 내용을 읽을 수 없습니다.</p>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+<div class="page-frame">
+
+  <header class="masthead">
+    <div class="mast-side mast-left" aria-hidden="true">
+      <span class="mini">AI OFFICE TOWER</span>
+      <span class="mini">SECTION A&ndash;A</span>
+      <span class="mini mini-soft">SHEET 02</span>
+    </div>
+
+    <div class="title-block">
+      <p class="kicker">A THIRTEEN-FLOOR OFFICE, TOGETHER</p>
+      <h1>논의 AI 사무실</h1>
+      <p class="title-en">NONE&rsquo;s AI Office Tower</p>
+      <p class="dek">지하 2층부터 옥상까지 — 열세 개 층에 다섯 명의 동료와 지금 굴러가는 일.</p>
+    </div>
+
+    <div class="mast-side mast-right">
+      <div class="stamp" aria-hidden="true">
+        <strong>SKETCH</strong>
+        <span>13 FLOORS</span>
+        <span>2026.11.23</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="mast-rule" aria-hidden="true"><i></i></div>
+
+  <nav class="sheet-nav" aria-label="구역 바로가기">
+    <div class="nav-links">
+      <a href="#building">건물</a>
+      <em aria-hidden="true">/</em>
+      <a href="#org">조직</a>
+      <em aria-hidden="true">/</em>
+      <a href="#people">사람</a>
+      <em aria-hidden="true">/</em>
+      <a href="#work">일</a>
+    </div>
+    <p class="basis">자료 기준 <span id="basis-date">2026.11.23</span><span class="dotsep" aria-hidden="true">·</span><span id="clock">—</span></p>
+  </nav>
+
+  <main id="main">
+
+    <section class="summary" aria-label="한눈에 요약">
+      <div class="sum">
+        <span class="sum-k">층</span>
+        <strong class="sum-v" id="sum-floors">–</strong>
+        <span class="sum-c">옥상 · 지상 10 · 지하 2</span>
+      </div>
+      <div class="sum">
+        <span class="sum-k">진행 중</span>
+        <strong class="sum-v" id="sum-run">–</strong>
+        <span class="sum-c">지금 움직이는 트랙</span>
+      </div>
+      <div class="sum">
+        <span class="sum-k">대기</span>
+        <strong class="sum-v" id="sum-wait">–</strong>
+        <span class="sum-c">결정·검증을 기다림</span>
+      </div>
+      <div class="sum">
+        <span class="sum-k">7일 안 마감</span>
+        <strong class="sum-v sum-v-accent" id="sum-soon">–</strong>
+        <span class="sum-c">오늘부터 D-7</span>
+      </div>
+    </section>
+
+    <section class="sheet" id="building" aria-labelledby="building-title">
+      <h2 class="plaque" id="building-title"><span>건물 단면도 · 13F<em>PLATE 01</em></span></h2>
+      <p class="sheet-dek">엘리베이터 버튼이나 층을 눌러 안을 들여다보세요. <b>B1</b>은 잠겨 있습니다.</p>
+
+      <div class="section-grid">
+        <div class="elev" id="elev" aria-label="엘리베이터 층 선택">
+          <p class="elev-cap">ELEV.</p>
+          <div class="elev-body">
+            <div class="elev-shaft" aria-hidden="true">
+              <span class="elev-rail"></span>
+              <span class="elev-cab" id="elev-cab"><i></i></span>
+            </div>
+            <div class="elev-btns" id="elev-btns" role="group" aria-label="층 버튼"></div>
+          </div>
+          <p class="elev-now"><span>현재</span> <b id="elev-now">2F</b></p>
+        </div>
+
+        <div class="tower-wrap">
+          <div class="tower" id="tower">
+            <div class="tower-art" id="tower-art"></div>
+            <div class="tower-bands" id="tower-bands"></div>
+          </div>
+        </div>
+
+        <aside class="panel" id="panel" aria-label="선택한 층 상세"></aside>
+      </div>
+
+      <div class="section-foot">
+        <p class="tower-note" id="tower-note" role="status" aria-live="polite"></p>
+        <div class="tower-legend" aria-hidden="true">
+          <span class="scale"><i></i>0</span>
+          <span class="scale"><i></i>5</span>
+          <span class="scale"><i></i>10m</span>
+          <span class="scale-note">단면 축척 · SKETCH</span>
+        </div>
+      </div>
+
+      <div class="floorstrip" id="floor-strip" aria-label="층 안내"></div>
+    </section>
+
+    <section class="sheet" id="org" aria-labelledby="org-title">
+      <h2 class="plaque" id="org-title"><span>조직 · 네 팀과 팀장석<em>PLATE 02</em></span></h2>
+      <p class="sheet-dek">인계문의 다섯 사람을 이 건물의 네 팀에 그대로 이어 붙였습니다. 이름·캐릭터는 논님이 확정 예정입니다.</p>
+
+      <div class="org-grid">
+        <div class="team-cards" id="team-cards"></div>
+
+        <aside class="org-side">
+          <h3 class="sub-plaque">지휘 체계<em>DECISION LINE</em></h3>
+          <ol class="chain" id="chain"></ol>
+
+          <h3 class="sub-plaque">상태 범례<em>STATUS</em></h3>
+          <ul class="legend" id="legend"></ul>
+
+          <h3 class="sub-plaque">사무실 규칙<em>HOUSE RULES</em></h3>
+          <ol class="rules" id="rules"></ol>
+        </aside>
+      </div>
+    </section>
+
+    <section class="sheet" id="people" aria-labelledby="people-title">
+      <h2 class="plaque" id="people-title"><span>사람 다섯<em>PLATE 03</em></span></h2>
+      <p class="sheet-dek">각자의 자리(층)를 누르면 그 층 도면으로 올라갑니다.</p>
+
+      <div class="team" id="team-grid"></div>
+
+      <p class="tiny">자리와 팀은 인계문·이번 구성안을 기준으로 정리했습니다. 카드의 '지금'은 자료 기준 시점의 상태이고, 이 화면은 실시간 연결이 아닌 정적 시안입니다.</p>
+    </section>
+
+    <section class="sheet" id="work" aria-labelledby="work-title">
+      <h2 class="plaque" id="work-title"><span>프로젝트 · 일정<em>PLATE 04</em></span></h2>
+      <p class="sheet-dek">실제로 굴러가는 12건. 층 도면의 '연결된 일'과 같은 장부입니다.</p>
+
+      <div class="filters" id="filters" role="group" aria-label="프로젝트 분류"></div>
+      <p class="filter-note" id="filter-note" role="status" aria-live="polite"></p>
+
+      <div class="work-grid">
+        <div class="ledger" id="project-rows"></div>
+
+        <aside class="side" id="schedule" aria-labelledby="sch-title">
+          <h3 class="sub-plaque" id="sch-title">다가오는 일정<em>CALENDAR</em></h3>
+          <ol class="timeline" id="timeline"></ol>
+          <p class="tiny" id="timeline-note"></p>
+
+          <h3 class="sub-plaque">휴무일<em>DAYS OFF</em></h3>
+          <div class="rest" id="rest"></div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="foot-left">
+      <p class="signature">논 × 피클 AI</p>
+      <p class="tiny">AI사무실 13층 단면도 · 스케치 시안 <span id="foot-version">v2.0</span></p>
+    </div>
+    <div class="foot-right">
+      <p class="tiny">자료 기준 <span id="foot-date">2026.11.23</span><span class="dotsep" aria-hidden="true">·</span>갱신 <span id="foot-updated">—</span>
+        <button class="relock" id="lock-again" type="button">잠그기</button></p>
+      <p class="tiny">외부 백엔드·DB·폰트 없이 도는 한 장짜리 페이지입니다. 내용은 암호문으로만 실려 있고, 원본은 따로 보관합니다.</p>
+      <p class="tiny">단면도는 <code>art.js</code>가 SVG로 그립니다. 색칠 전 연필 도면이라 선과 해칭만 씁니다.</p>
+    </div>
+  </footer>
+
+</div>
+</div>
+
+<div class="backdrop" id="backdrop" hidden></div>
+
+<noscript>
+  <p class="noscript">이 시트는 자바스크립트로 도면을 그리고 잠금을 풉니다. 브라우저에서 자바스크립트를 켜야 내용이 보입니다.</p>
+</noscript>
+
+<script src="art.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
